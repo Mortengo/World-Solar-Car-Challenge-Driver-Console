@@ -1,4 +1,4 @@
-package com.deakin.university.worldsolarcarchallengedriverconsole;
+package com.deakin.university.diverconsole;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

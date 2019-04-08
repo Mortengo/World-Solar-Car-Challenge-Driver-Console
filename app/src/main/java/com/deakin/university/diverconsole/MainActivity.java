@@ -1,4 +1,4 @@
-package com.deakin.university.worldsolarcarchallengedriverconsole;
+package com.deakin.university.diverconsole;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

@@ -1,4 +1,4 @@
-package com.deakin.university.worldsolarcarchallengedriverconsole;
+package com.deakin.university.diverconsole;
 
 import org.junit.Test;
 
