@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">World Solar Car Challenge Driver Console</string>
+    <string name="speed_unit">%1$d km/h</string>
 </resources>
