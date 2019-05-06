@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    ArrayList<String> speedList = new ArrayList<>();
+    ReadData readData = new ReadData();
 
     TextView speedTextView;
 
@@ -34,28 +34,29 @@ public class MainActivity extends AppCompatActivity {
         public void run() {
 
             //Check put in place as speedList.size() returns items in the list not the index of the array. Hence we need to minus one from speedList.size()
-            if (listCount <= speedList.size() - 1 && currentSpeed < Integer.valueOf(speedList.get(listCount))){
+            if (listCount <= readData.getSpeedList().size() - 1 && currentSpeed < Integer.valueOf(readData.getSpeedList().get(listCount))){
                 currentSpeed++;
                 Log.d("Current Speed: ", String.valueOf(currentSpeed));
                 speedTextView.setText(getString(R.string.speed_unit, currentSpeed));
                 mHandler.postDelayed(this, 100);
             }
-            else if (listCount <= speedList.size() - 1 && currentSpeed > Integer.valueOf(speedList.get(listCount))){
+            else if (listCount <= readData.getSpeedList().size() - 1 && currentSpeed > Integer.valueOf(readData.getSpeedList().get(listCount))){
                 currentSpeed--;
                 Log.d("Current Speed: ", String.valueOf(currentSpeed));
                 speedTextView.setText(getString(R.string.speed_unit, currentSpeed));
                 mHandler.postDelayed(this, 100);
             }
-            else if (listCount < speedList.size() - 1 && currentSpeed == Integer.valueOf(speedList.get(listCount))){
+            else if (listCount < readData.getSpeedList().size() - 1 && currentSpeed == Integer.valueOf(readData.getSpeedList().get(listCount))){
                 listCount++;
                 mHandler.postDelayed(this, 100);
             }
-            else if (listCount == speedList.size() - 1) {
+            else if (listCount == readData.getSpeedList().size() - 1) {
                 listCount=0;
                 mHandler.postDelayed(this, 100);
             }
 
             Log.d("List Count: ", String.valueOf(listCount));
+            Log.d("Speed List Size", String.valueOf(readData.getSpeedList().size()));
         }
     };
 
@@ -66,8 +67,9 @@ public class MainActivity extends AppCompatActivity {
 
         speedTextView = findViewById(R.id.speedTextView);
 
-        getJSON();
+        ReadData readData = new ReadData();
 
+        readData.parseJson(getApplicationContext(), "speed.json");
     }
 
     @Override
@@ -81,33 +83,5 @@ public class MainActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         mHandler.removeCallbacks(runnable);
-    }
-
-    // Reads JSON file and parses it to an ArrayList
-    public void getJSON() {
-        String json;
-
-        try {
-            InputStream is = getAssets().open("speed.json");
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
-
-            json = new String(buffer, "UTF-8");
-            JSONArray jsonArray= new JSONArray(json);
-
-            for (int i=0; i < jsonArray.length(); i++) {
-                JSONObject obj = jsonArray.getJSONObject(i);
-
-                String speed = obj.getString("speed");
-                speedList.add(speed);
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
     }
 }
