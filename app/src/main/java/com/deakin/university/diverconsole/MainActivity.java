@@ -1,6 +1,7 @@
 package com.deakin.university.diverconsole;
 
 import android.os.Handler;
+import android.support.annotation.RequiresPermission;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,16 +14,17 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
 
     ReadData readData = new ReadData();
 
+
     TextView speedTextView;
 
     Handler mHandler = new Handler();
-
 
     // Iterates through the list and sets the value given.
     public Runnable runnable = new Runnable() {
@@ -66,8 +68,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         speedTextView = findViewById(R.id.speedTextView);
-
-        ReadData readData = new ReadData();
 
         readData.parseJson(getApplicationContext(), "speed.json");
     }
