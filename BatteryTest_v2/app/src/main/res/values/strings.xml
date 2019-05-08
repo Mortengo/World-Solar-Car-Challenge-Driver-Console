@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">BatteryTest_v2</string>
+    <string name="battery_unit"> </string>
+</resources>
