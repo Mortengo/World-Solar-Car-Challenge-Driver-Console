@@ -16,7 +16,7 @@ public class ReadData {
     ArrayList<String> speedList = new ArrayList<>();
 
     // Reads JSON file and parses it to an ArrayList
-    public void parseJson(Context myContext, String jsonFile) {
+    public void parseJson(Context myContext, String jsonFile, String keySearch) {
         AssetManager manager = myContext.getAssets();
         String json;
 
@@ -33,7 +33,7 @@ public class ReadData {
             for (int i=0; i < jsonArray.length(); i++) {
                 JSONObject obj = jsonArray.getJSONObject(i);
 
-                String speed = obj.getString("speed");
+                String speed = obj.getString(keySearch);
                 speedList.add(speed);
             }
 

@@ -1,21 +1,10 @@
 package com.deakin.university.diverconsole;
 
 import android.os.Handler;
-import android.support.annotation.RequiresPermission;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,10 +13,10 @@ public class MainActivity extends AppCompatActivity {
 
     TextView speedTextView;
 
-    Handler mHandler = new Handler();
+    Handler speedHandler = new Handler();
 
     // Iterates through the list and sets the value given.
-    public Runnable runnable = new Runnable() {
+    public Runnable UpdateSpeed = new Runnable() {
 
         int listCount = 0;
         int currentSpeed = 0;
@@ -40,21 +29,21 @@ public class MainActivity extends AppCompatActivity {
                 currentSpeed++;
                 Log.d("Current Speed: ", String.valueOf(currentSpeed));
                 speedTextView.setText(getString(R.string.speed_unit, currentSpeed));
-                mHandler.postDelayed(this, 100);
+                speedHandler.postDelayed(this, 100);
             }
             else if (listCount <= readData.getSpeedList().size() - 1 && currentSpeed > Integer.valueOf(readData.getSpeedList().get(listCount))){
                 currentSpeed--;
                 Log.d("Current Speed: ", String.valueOf(currentSpeed));
                 speedTextView.setText(getString(R.string.speed_unit, currentSpeed));
-                mHandler.postDelayed(this, 100);
+                speedHandler.postDelayed(this, 100);
             }
             else if (listCount < readData.getSpeedList().size() - 1 && currentSpeed == Integer.valueOf(readData.getSpeedList().get(listCount))){
                 listCount++;
-                mHandler.postDelayed(this, 100);
+                speedHandler.postDelayed(this, 100);
             }
             else if (listCount == readData.getSpeedList().size() - 1) {
                 listCount=0;
-                mHandler.postDelayed(this, 100);
+                speedHandler.postDelayed(this, 100);
             }
 
             Log.d("List Count: ", String.valueOf(listCount));
@@ -69,19 +58,19 @@ public class MainActivity extends AppCompatActivity {
 
         speedTextView = findViewById(R.id.speedTextView);
 
-        readData.parseJson(getApplicationContext(), "speed.json");
+        readData.parseJson(getApplicationContext(), "speed.json", "speed");
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        mHandler = new Handler();
-        mHandler.postDelayed(runnable, 1000);
+        speedHandler = new Handler();
+        speedHandler.postDelayed(UpdateSpeed, 1000);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        mHandler.removeCallbacks(runnable);
+        speedHandler.removeCallbacks(UpdateSpeed);
     }
 }
