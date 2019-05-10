@@ -1,6 +1,15 @@
 package com.deakin.university.diverconsole;
 
+import android.Manifest;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.PersistableBundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 import android.hardware.Sensor;
@@ -10,79 +19,41 @@ import android.hardware.SensorManager;
 import android.widget.Button;
 import android.view.View;
 
+import org.w3c.dom.Text;
+
 public class MainActivity extends AppCompatActivity {
 
-    private TextView temp = null;
-    private SensorManager ManageSensor = null;
-    private Button show = null;
-    private Button hide = null;
-    private Sensor TemSensor = null;
-    private float temperatureC;
-
-    public float getTemperatureC() {
-        return getFloat(temperatureC) ;
-    }
-    public float getFloat(float value)
-    {
-        return (float)(Math.round(value * 10)) / 10;
-    }
-    public void setTemperatureC(float temperatureC)
-    {
-        this.temperatureC = temperatureC;
-
-    }
+    static TextView placetext;
+    static TextView temptext;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        temp = (TextView)findViewById(R.id.Tem);
-        //get the sensor server
-        ManageSensor = (SensorManager)getSystemService(SENSOR_SERVICE);
-        //give the sensor type of
-        TemSensor = ManageSensor.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE);
-        show = (Button)findViewById(R.id.showTem);
-        hide = (Button)findViewById(R.id.hideTem);
-        final SensorEventListener mSensorEventListner = new SensorEventListener() {
-            @Override
-            public void onSensorChanged(SensorEvent event) {
-                if (event.sensor.getType() == Sensor.TYPE_AMBIENT_TEMPERATURE)
-                {
-                    float Temperature = event.values[0];
-                    setTemperatureC(Temperature);
-                    temp.setText(String.valueOf(getTemperatureC() + "℃"));
-                }
-            }
 
-            @Override
-            public void onAccuracyChanged(Sensor sensor, int accuracy) {
+        placetext = (TextView) findViewById(R.id.location);
+        temptext = (TextView) findViewById(R.id.weather);
 
-            }
-        };
-        show.setOnClickListener(new Button.OnClickListener()
-        {
-            @Override
-            public void onClick(View arg0)
-            {
-                ManageSensor.registerListener(mSensorEventListner, TemSensor,SensorManager.SENSOR_DELAY_NORMAL);
-                show.setVisibility(View.INVISIBLE);
-                hide.setVisibility(View.VISIBLE);
-                temp.setVisibility(View.VISIBLE);
-            }
-        });
-        hide.setOnClickListener(new Button.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                ManageSensor.unregisterListener(mSensorEventListner,TemSensor);
-                hide.setVisibility(View.INVISIBLE);
-                show.setVisibility(View.VISIBLE);
-                temp.setVisibility(View.INVISIBLE);
-            }
-        });
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        String provider = locationManager.getBestProvider(new Criteria(), false);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        Location location = locationManager.getLastKnownLocation(provider);
+        double lat = location.getLatitude();
+        double lon = location .getLongitude();
+
+        functions _function = new functions();
+        // _function.execute("https://samples.openweathermap.org/data/2.5/weather?lat=35&lon=139&appid=6bd9d37d838c6880b4f7be717a002f49");
+        //_function.execute("http://api.openweathermap.org/data/2.5/weather?lat="+ lat + "&lon=" + lon +"&appid=54adf57bbc67acd54ea5288d3964f297");
+        _function.execute("https://api.openweathermap.org/data/2.5/weather?q=Melbourne&appid=54adf57bbc67acd54ea5288d3964f297");
 
     }
-
 }
