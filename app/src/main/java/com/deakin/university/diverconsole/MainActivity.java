@@ -16,12 +16,13 @@ public class MainActivity extends AppCompatActivity {
 
     static TextView placetext;
     static TextView temptext;
+    TextView _lan;
+    TextView _lon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         placetext = (TextView) findViewById(R.id.location);
         temptext = (TextView) findViewById(R.id.weather);
 
@@ -40,11 +41,16 @@ public class MainActivity extends AppCompatActivity {
         Location location = locationManager.getLastKnownLocation(provider);
         double lat = location.getLatitude();
         double lon = location .getLongitude();
+        /*_lon = (TextView) findViewById(R.id.lon);
+        _lan = (TextView) findViewById(R.id.lan);
+        _lon.setText(String.valueOf(lon));
+        _lan.setText(String.valueOf(lat));*/
+
 
         functions _function = new functions();
         // _function.execute("https://samples.openweathermap.org/data/2.5/weather?lat=35&lon=139&appid=6bd9d37d838c6880b4f7be717a002f49");
-        //_function.execute("http://api.openweathermap.org/data/2.5/weather?lat="+ lat + "&lon=" + lon +"&appid=54adf57bbc67acd54ea5288d3964f297");
-        _function.execute("https://api.openweathermap.org/data/2.5/weather?q=Melbourne&appid=54adf57bbc67acd54ea5288d3964f297");
+        _function.execute("https://api.openweathermap.org/data/2.5/weather?lat="+ lat + "&lon=" + lon +"&appid=54adf57bbc67acd54ea5288d3964f297");
+        //_function.execute("https://api.openweathermap.org/data/2.5/weather?q=Melbourne&appid=54adf57bbc67acd54ea5288d3964f297");
 
     }
 }
