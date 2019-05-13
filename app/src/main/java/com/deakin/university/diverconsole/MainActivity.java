@@ -3,6 +3,8 @@ package com.deakin.university.diverconsole;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
@@ -20,9 +22,14 @@ public class MainActivity extends AppCompatActivity {
 
     public static TextView speedTextView, batteryTextView, distanceTraveled, ambientTemperature, weatherLocation, weatherTemperature;
 
-
     private static final String SPEED_TAG = "Current Speed: ";
     private static final String BATTERY_LEVEL_TAG = "Battery Level: ";
+
+    private SensorManager sensorManager;
+    private Sensor ambientTemperatureSensor;
+
+    GetAmbientTemp getAmbientTemp = new GetAmbientTemp(MainActivity.this);
+
 
 
     UpdateDateAndTime updateDateAndTime = new UpdateDateAndTime(MainActivity.this);
@@ -135,12 +142,22 @@ public class MainActivity extends AppCompatActivity {
         speedTextView = findViewById(R.id.speedTextView);
         batteryTextView = findViewById(R.id.batteryPowerValue);
 
-
-
+        //Read JSON data for testing
         readData.parseJson(getApplicationContext(),"speed.json", "speed");
         readData.parseJson(getApplicationContext(),"battery.json", "battery");
 
+        //Update the date and time on the screen
         updateDateAndTime.showDateAndTime();
+
+        //Get the sensor service
+        sensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
+
+        //Give the sensor type i.e. Ambient Temperature
+        ambientTemperatureSensor = sensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE);
+
+        //Register the listener and display ambient temperature on the screen
+        sensorManager.registerListener(getAmbientTemp.mSensorEventListener, ambientTemperatureSensor, SensorManager.SENSOR_DELAY_NORMAL);
+
     }
 
     @Override
