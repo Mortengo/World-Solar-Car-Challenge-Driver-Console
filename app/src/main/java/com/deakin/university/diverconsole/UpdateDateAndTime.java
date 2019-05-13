@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class UpdateDateAndTime extends AsyncTask<String, Void, String> {
     private Activity mActivity;
@@ -24,9 +25,8 @@ public class UpdateDateAndTime extends AsyncTask<String, Void, String> {
                             @Override
                             public void run() {
                                 TextView DateAndTime = mActivity.findViewById(R.id.DateAndTime);
-                                long currentTimeMillis = System.currentTimeMillis();
-                                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/mm/yyyy\nhh:mm:ss a");
-                                String DateTime = simpleDateFormat.format(currentTimeMillis);
+                                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("d MMMM yyyy\nhh:mm:ss ");
+                                String DateTime = simpleDateFormat.format(new Date());
                                 DateAndTime.setText(DateTime);
                             }
                         });

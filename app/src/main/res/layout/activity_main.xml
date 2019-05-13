@@ -205,6 +205,7 @@
         android:id="@+id/DateAndTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
         android:layout_marginStart="559dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="559dp"
