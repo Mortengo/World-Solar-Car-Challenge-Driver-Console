@@ -25,7 +25,7 @@ public class UpdateDateAndTime extends AsyncTask<String, Void, String> {
                             @Override
                             public void run() {
                                 TextView DateAndTime = mActivity.findViewById(R.id.DateAndTime);
-                                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("d MMMM yyyy\nhh:mm:ss ");
+                                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("d MMMM yyyy\nhh:mm ");
                                 String DateTime = simpleDateFormat.format(new Date());
                                 DateAndTime.setText(DateTime);
                             }

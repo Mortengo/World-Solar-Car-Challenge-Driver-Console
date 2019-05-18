@@ -1,61 +1,71 @@
 package com.deakin.university.diverconsole;
 
-import android.content.Context;
-import android.content.res.AssetManager;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 
 public class ReadData {
 
+    public RequestQueue mQueue;
     ArrayList<String> speedList = new ArrayList<>();
     ArrayList<String> batteryList = new ArrayList<>();
+    ArrayList<String> distanceTraveledList = new ArrayList<>();
 
-    // Reads JSON file and parses it to an ArrayList
-    public void parseJson(Context myContext, String jsonFile, String keySearch) {
-        AssetManager manager = myContext.getAssets();
-        String json;
 
-        try {
-            InputStream is = manager.open(jsonFile);
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
+    public void jsonParse(String URL, final String keySearch) throws InterruptedException {
 
-            json = new String(buffer, "UTF-8");
-            JSONArray jsonArray= new JSONArray(json);
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, URL, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                try{
+                    for (int i = 0; i < response.length(); i++) {
+                        JSONObject jsonObject = response.getJSONObject(i);
 
-            for (int i=0; i < jsonArray.length(); i++) {
-                JSONObject obj = jsonArray.getJSONObject(i);
-                String object = obj.getString(keySearch);
+                        String data = jsonObject.getString(keySearch);
+                        if (keySearch == "speed") {
+                            speedList.add(data);
+                        }
+                        if (keySearch == "battery") {
+                            batteryList.add(data);
+                        }
+                        if (keySearch == "distanceTraveled") {
+                            distanceTraveledList.add(data);
+                            System.out.println(data);
+                            System.out.println(distanceTraveledList);
+                        }
 
-                if (jsonFile == "speed.json") {
-                    speedList.add(object);
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-                if (jsonFile == "battery.json") {
-                    batteryList.add(object);
-                }
-
             }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        mQueue.add(request);
+        Thread.sleep(2000);
     }
+
 
     public ArrayList<String> getSpeedList() {
         return speedList;
     }
 
-    public ArrayList<String> getBatteryList() {
+    public  ArrayList<String> getBatteryList() {
         return batteryList;
     }
 }
+
