@@ -22,7 +22,7 @@ import com.android.volley.toolbox.Volley;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static TextView speedTextView, batteryTextView, distanceTraveled, ambientTemperature, weatherLocation, weatherTemperature;
+    public static TextView speedTextView, batteryTextView, distanceTraveled, weatherLocation, weatherTemperature;
 
     private static final String GET_SPEED_DATA_API = "http://10.0.2.2:2000/data/speed";
     private static final String GET_BATTERY_DATA_API = "http://10.0.2.2:2000/data/battery";
@@ -41,8 +41,6 @@ public class MainActivity extends AppCompatActivity {
     private Sensor ambientTemperatureSensor;
 
     GetAmbientTemp getAmbientTemp = new GetAmbientTemp(MainActivity.this);
-
-
 
     UpdateDateAndTime updateDateAndTime = new UpdateDateAndTime(MainActivity.this);
 
