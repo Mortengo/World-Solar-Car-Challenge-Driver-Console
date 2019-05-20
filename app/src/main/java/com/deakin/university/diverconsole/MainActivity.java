@@ -158,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
 
         GetWeatherInformation getWeatherInformation = new GetWeatherInformation();
 
-        getWeatherInformation.execute("https://api.openweathermap.org/data/2.5/weather?lat=" + latitude + "&lon=" + longitude + "&units=metric" + "&appid=54adf57bbc67acd54ea5288d3964f297");
+        getWeatherInformation.execute(OPEN_WEATHER_API_LINK + latitude + LONGITUDE_TAG + longitude + UNITS_METRICS_TAG + WEATHER_API_KEY_TAG );
     }
 
 
