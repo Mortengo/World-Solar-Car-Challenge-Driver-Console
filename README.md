@@ -40,7 +40,7 @@ Once in Android Studio, on the top select __tools__ and then select __AVD Manage
 - __Device Type:__ Phone/Tablet
 - __Screen --> Screen Size:__ 15
 
-Once these settings have been configured click finish. In the search bar, search for the device you just created __(i.e. 15 Inch Tablet)__. Click on it and click next. You will be prompted to install a system image. Select __Oreo API Level 27__. Then click the download button next to the image to download the image. Once that is done click next and then next again and then finish. The device should now pop up on your screen.
+Once these settings have been configured click finish. In the search bar, search for the device you just created __(i.e. 15 Inch Tablet)__. Click on it and click next. You will be prompted to install a system image. Select __Oreo API Level 27__. Then click the download button next to the image to download the image. Once that is done click next and then next again and then finish. The device should now pop up on your screen. You can now close this window.
 
 #### Note
 This may take up some space on your disk drive. Ensure you have enough storage on your drive before downloading the image. The image may be as big as __6GB__.
