@@ -2,17 +2,238 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:background="#2b2b2b"
+    android:screenOrientation="landscape"
+    tools:context="MainActivity">
+
+    <Button
+        android:id="@+id/settingsButton"
+        android:layout_width="334dp"
+        android:layout_height="182dp"
+        android:layout_marginStart="132dp"
+        android:layout_marginBottom="108dp"
+        android:text="Settings"
+        android:textSize="50sp"
+        android:textColor="#FFFFFF"
+        android:background="#4d4f54"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <Button
+        android:id="@+id/WeatherButton"
+        android:layout_width="334dp"
+        android:layout_height="182dp"
+        android:layout_marginEnd="132dp"
+        android:layout_marginBottom="108dp"
+        android:text="Weather"
+        android:onClick="showWeather"
+        android:textSize="50sp"
+        android:textColor="#FFFFFF"
+        android:background="#4d4f54"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
+        android:id="@+id/speedTextView"
+        android:layout_width="250dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="860dp"
+        android:layout_marginTop="244dp"
+        android:layout_marginEnd="860dp"
+        android:gravity="center"
+        android:hint="0"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFF"
+        android:textSize="200sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_conversion_wrapHeight="186"
+        tools:layout_conversion_wrapWidth="77" />
+
+    <TextView
+        android:id="@+id/distance_traveled_title"
+        android:layout_width="500dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="108dp"
+        android:gravity="center"
+        android:text="Distance Traveled"
+        android:textColor="#FFFFFF"
+        android:textSize="50sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_conversion_wrapHeight="187"
+        tools:layout_conversion_wrapWidth="323" />
+
+    <TextView
+        android:id="@+id/ambient_temperature_title"
+        android:layout_width="600dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="108dp"
+        android:layout_marginEnd="80dp"
+        android:gravity="center"
+        android:text="Ambient Temperature"
+        android:textColor="#FFFFFF"
+        android:textSize="50sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_conversion_wrapHeight="187"
+        tools:layout_conversion_wrapWidth="323" />
+
+    <TextView
+        android:id="@+id/distanceTraveled"
+        android:layout_width="400dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="130dp"
+        android:layout_marginTop="50dp"
+        android:gravity="center_horizontal"
+        android:text="0km"
+        android:textColor="#FFFFFF"
+        android:textSize="50sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/distance_traveled_title" />
+
+    <TextView
+        android:id="@+id/ambientTemperature"
+        android:layout_width="175dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="317dp"
+        android:gravity="center_horizontal"
+        android:text="0°C"
+        android:textColor="#FFFFFF"
+        android:textSize="50sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ambient_temperature_title" />
+
+    <TextView
+        android:id="@+id/weatherTemperature"
+        android:layout_width="150dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="432dp"
+        android:layout_marginEnd="431dp"
+        android:layout_marginBottom="108dp"
+        android:gravity="center_horizontal"
+        android:textColor="#FFFFFF"
+        android:textSize="50sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/WeatherButton"
+        app:layout_constraintStart_toEndOf="@+id/settingsButton" />
+
+    <TextView
+        android:id="@+id/weatherLocation"
+        android:layout_width="600dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="344dp"
+        android:layout_marginEnd="344dp"
+        android:layout_marginBottom="32dp"
+        android:gravity="center_horizontal"
+        android:textColor="#FFFFFF"
+        android:textSize="50sp"
+        app:layout_constraintBottom_toTopOf="@+id/weatherTemperature"
+        app:layout_constraintEnd_toStartOf="@+id/WeatherButton"
+        app:layout_constraintStart_toEndOf="@+id/settingsButton" />
+
+    <TextView
+        android:id="@+id/kilometersPerHourTextView"
+        android:layout_width="200dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="838dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="838dp"
+        android:gravity="center"
+        android:text="@string/kilometers_per_hour"
+        android:textColor="#FFFFFF"
+        android:textSize="50sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/speedTextView"
+        tools:layout_conversion_wrapHeight="187"
+        tools:layout_conversion_wrapWidth="323" />
+
+    <TextView
+        android:id="@+id/batteryPowerValue"
+        android:layout_width="50dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="960dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="960dp"
+        android:textColor="#ffffff"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/progressbar"
+        tools:layout_conversion_wrapHeight="53"
+        tools:layout_conversion_wrapWidth="0" />
+
+    <TextView
+        android:id="@+id/ZeroPercentTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="625dp"
+        android:layout_marginEnd="30dp"
+        android:text="0%"
+        android:textColor="#ffffff"
+        android:textSize="40sp"
+        app:layout_constraintEnd_toStartOf="@+id/progressbar"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/OneHundredPercentTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="625dp"
+        android:layout_marginEnd="16dp"
+        android:text="100%"
+        android:textColor="#ffffff"
+        android:textSize="40sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/progressbar"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/DateAndTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginStart="559dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="559dp"
+        android:textColor="#ffffff"
+        android:textSize="50sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/progressbar"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:layout_width="1650dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="500dp"
+        android:layout_marginTop="52dp"
+        android:layout_marginEnd="500dp"
+        android:maxWidth="50dip"
+        android:minWidth="50dip"
+        android:progress="50"
+        android:progressDrawable="@drawable/myprogressbar"
+        android:right="2dp"
+        android:top="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/kilometersPerHourTextView"
+        tools:layout_conversion_wrapHeight="55"
+        tools:layout_conversion_wrapWidth="1925" />
 
 </android.support.constraint.ConstraintLayout>
