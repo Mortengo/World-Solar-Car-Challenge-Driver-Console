@@ -8,7 +8,7 @@ This is the World Solar Car Challenge driver console repository. To run the code
 - GIT
 - Simulator
 
-## How To Install Required Software & Setup
+## How to Install Required Software & Setup
 
 ### Android Studio
 Android Studio can be installed here: https://developer.android.com/studio. Download and install Android Studio.
