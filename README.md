@@ -46,7 +46,7 @@ Once these settings have been configured click finish. In the search bar, search
 This may take up some space on your disk drive. Ensure you have enough storage on your drive before downloading the image. The image may be as big as __6GB__.
 
 ### Setting Up activity_main.xml
-Under app --> main --> res --> layout select activity_main.xml. From there on the bottom left you will see a button called design, click on it. On the top left you will see a symbol that has a screen that is half rotated, click on it and change it to landscape instead of portrait. After that is done click the button next to the half rotated screen and select the device you created above. The design should now fit the dimensions.
+Under __app --> main --> res --> layout__ select __activity_main.xml.__ From there on the bottom left you will see a button called design, click on it. On the top left you will see a symbol that has a screen that is half rotated, click on it and change it to landscape instead of portrait. After that is done click the button next to the half rotated screen and select the device you created above. The design should now fit the dimensions.
 
 ### Running The Application
 To run the application click the play button on the top. You will be prompted to select a Virtual Device. Select the device you created and click ok. The application will begin to load. It make take __10-15 seconds__ to load. Once loaded the application should be running in the emulator.
